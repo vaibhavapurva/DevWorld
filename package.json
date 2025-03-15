@@ -1,0 +1,19 @@
+{
+  "name": "devworld",
+  "version": "1.0.0",
+  "description": "this is backend application for developer world contions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript",
+    "express"
+  ],
+  "author": "Vaibhva Apurva",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
