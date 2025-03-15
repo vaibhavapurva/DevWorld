@@ -3,7 +3,7 @@ const app  = express();
 
 
 
-app.use('/',(, res)=>{
+app.use('/',(req, res)=>{
 res.send("this is the dashboard page")    
 })
 
