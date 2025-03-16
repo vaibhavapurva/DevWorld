@@ -11,6 +11,10 @@ app.get('/user', (req, res) =>{
     }
     res.send(data)
 })
+app.get('/user/:userID/:name/:password', (req, res)=>{
+    console.log(req.params)
+res.send("done bhai")
+})
 app.delete('/user', (req, res) =>{
     res.send("user was deleted")
 })
