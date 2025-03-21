@@ -6,20 +6,36 @@ const userSchema = new mongoose.Schema({
     },
     LastName: {
         type: String,
+
     },
     emailID: {
         type: String,
-
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
     },
     password: {
         type: String,
+        required: true
     },
     age: {
-        type: Number
+        type: Number,
+        min:18
     },
     gender: {
         type: String
     },
+    about: {
+        type: String,
+    },
+    skills: {
+        type: [String]
+    },
+    photoURL: {
+        type: String,
+        default: "https://www.freepik.com/free-photos-vectors/default-user"
+    }
 })
 
 

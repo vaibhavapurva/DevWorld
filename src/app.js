@@ -6,16 +6,65 @@ const User = require("./models/user");
 
 app.use(express.json())
 
+app.get('/user', async (req, res) =>{
+    const email = req.body.emailID
+    // const user = await User.find({emailID : email})
+    try{
+        const users = await User.find({emailID : email})
+        if(users.length > 0){
+            res.send(users)
+        }else{
+            res.status(404).send("user data not found")
+        }
+    }catch(err) {
+        res.status(400).send("somthing want worng")
+    }
+})
+
+app.get('/feed', async (req, res)=>{
+try{
+    const users = await User.find({});
+    if(users.length > 0){
+        res.send(users)
+    }else{
+        res.status(404).send("user data not found")
+    }
+}catch(err) {
+        res.status(400).send("somthing want worng")
+    }
+})
 app.post("/signup", async (req, res) => {
   const userObj = req.body 
   const user = new User(userObj);
+  console.log(userObj)
   try{
     await user.save();
-  res.send("user data submit")
+    res.send("user data submit")
   } catch(err) {
-    res.status(400).send("Error saving the user", err.message)
+    res.send("Error saving the user" +err.message)
+    console.log(err.message)
   }
 });
+
+app.delete("/user", async (req, res) =>{
+    const userID = req.body.userId
+    try{
+        const users  = await User.findByIdAndDelete(userID)
+        res.send("user deleted susscesfully")
+    }catch(err) {
+        res.status(401).send("Error saving the user", err.message)
+    }
+})
+
+app.patch("/user", async (req, res) =>{
+    const data = req.body
+    try{
+        const users = await User.findByIdAndUpdate(data.userId, data)
+        res.send("user data updated successfully");
+    }catch(err){
+        res.status(401).send("Error saving the user", err.message)
+    }
+})
 
 connectDB()
   .then(() => {
