@@ -36,7 +36,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "https://www.freepik.com/free-photos-vectors/default-user"
     }
-})
+},{
+    timestamps: true
+}
+)
 
 
 const User  = mongoose.model('User', userSchema);
