@@ -8,7 +8,7 @@ const profileRouter = express.Router();
 profileRouter.get("/profile", userAuth,  async (req, res) => {
     try {
       const user =  req.user
-      res.send(user);
+      res.json({message: "prfile data", data: user});
     } catch (err) {
       res.status(401).send("Error " + err.message);
     }
@@ -21,7 +21,7 @@ profileRouter.patch("/profile/edit", userAuth, async(req, res)=>{
         }
         const {_id} = req.user; 
         const user = await User.findByIdAndUpdate(_id, req.body)
-        res.send("edit")
+        res.send({message: "profile update", data: user})
     }catch (err) {
         res.status(401).send("Error " + err.message);
       }

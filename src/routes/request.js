@@ -47,6 +47,7 @@ requestRouter.post(
         fromUserId,
         toUserId,
         status,
+        fromUserName: req.user.firstName
       });
 
       const data = await connectionRequest.save();

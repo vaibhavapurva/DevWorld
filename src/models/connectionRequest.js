@@ -4,11 +4,13 @@ const connectionRequestSchema = new mongoose.Schema(
     {
         fromUserId:{
             type: mongoose.Schema.Types.ObjectId,
-            required: true
+            required: true,
+            ref: "User"
         },
         toUserId:{
             type: mongoose.Schema.Types.ObjectId,
-            required: true
+            required: true,
+            ref: "User"
         },
         status:{
             type: String,
@@ -16,6 +18,10 @@ const connectionRequestSchema = new mongoose.Schema(
                 values: ['ignored', 'intersted', 'accepted', 'rejected'],
                 message: `{VALUE} is incorrect status type`
             },
+            required: true
+        },
+        fromUserName: {
+            type: String,
             required: true
         }
     },
