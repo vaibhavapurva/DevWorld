@@ -3,7 +3,7 @@ const { validationSignUp } = require("../utils/validationsSignUp");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-
+const sendEmail = require("../utils/ses_sendemail")
 const authRouter = express.Router();
 
 authRouter.post("/signup", async (req, res) => {
@@ -49,11 +49,14 @@ authRouter.post("/login", async (req, res) => {
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
       });
+      const resEmail = await sendEmail.run()
+      console.log(resEmail)
       res.json({message: "login Successfully", data: user});
     } else {
       throw new Error("Invalid credentials");
     }
   } catch (err) {
+    console.log(err)
     res.send("Error" + err.message);
   }
 });

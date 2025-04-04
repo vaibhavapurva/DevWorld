@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const requestRouter = express.Router();
 const ConnectionRequestModel = require("../models/connectionRequest");
-
+const sendEmail = require("../utils/ses_sendemail")
 requestRouter.post(
   "/request/send/:status/:toUserId",
   userAuth,
@@ -51,6 +51,8 @@ requestRouter.post(
       });
 
       const data = await connectionRequest.save();
+      const resEmail = await sendEmail.run()
+      console.log(resEmail)
       res.json({
         message: "connect resquest send Succecfully",
         data,
