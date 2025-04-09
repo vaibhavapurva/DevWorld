@@ -38,6 +38,9 @@ const paymentSchema = new mongoose.Schema({
         },
         membershipType: {
             type: String
+        },
+        emailId: {
+            type: String
         }
     }
 },{

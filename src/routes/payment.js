@@ -16,9 +16,9 @@ paymentRouter.post("/payment/create", userAuth, async (req, res) => {
       receipt: "receipt#1",
       notes: {
         firstName: req.user.firstName,
-        LastName: req.user.LastName,
+        lastName: req.user.LastName,
         emailID: req.user.emailID,
-        membershipTyoe: req.body.type,
+        membershipType: req.body.type,
       },
     });
     const payment = new Payment({
