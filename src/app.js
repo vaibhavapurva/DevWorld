@@ -8,7 +8,7 @@ const authRouter = require('./routes/auth');
 const profileRouter = require('./routes/profile');
 const requestRouter = require("./routes/request");
 const userRouter = require("./routes/user");
-const paymentRouter = require("./routes/Payment");
+const paymentRouter = require("./routes/payment");
 app.use(cors({
   orgin:"http://localhost:5173/",
   credentials: true,
