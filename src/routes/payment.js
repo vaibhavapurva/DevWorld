@@ -47,7 +47,7 @@ paymentRouter.post("/payment/webhook",async (req, res) =>{
         const isWebhookValid = validateWebhookSignature(
             JSON.stringify(req.body),
             webhookSignature,
-            "Webhook@1221"
+            "WebHook@1221"
         );
         console.log("webhooks2",isWebhookValid)
         if(!isWebhookValid){
