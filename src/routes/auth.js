@@ -49,7 +49,7 @@ authRouter.post("/login", async (req, res) => {
       res.cookie("token", token, {
         expires: new Date(Date.now() + 8 * 3600000),
       });
-      const resEmail = await sendEmail.run()
+      const resEmail = await sendEmail.run("welcome to devConnect website", `hello ${user.firstName} your are login devconnect`)
       console.log(resEmail)
       res.json({message: "login Successfully", data: user});
     } else {
