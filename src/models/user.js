@@ -52,6 +52,13 @@ const userSchema = new mongoose.Schema({
     photoURL: {
         type: String,
         // default: "https://www.freepik.com/free-photos-vectors/default-user"
+    },
+    isPremium: {
+        type: Boolean,
+        default: false
+    },
+    membershipType:{
+        type: String
     }
 },{
     timestamps: true
