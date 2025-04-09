@@ -10,7 +10,14 @@ userRouter.get("/user/request/received", userAuth, async (req, res) => {
     const connectionRequest = await ConnectionRequestModel.find({
       toUserId: loginUserId,
       status: "intersted",
-    }).populate("fromUserId", ["firstName", "LastName", "photoURL","skills",'age', 'gender']);
+    }).populate("fromUserId", [
+      "firstName",
+      "LastName",
+      "photoURL",
+      "skills",
+      "age",
+      "gender",
+    ]);
     console.log("connectionRequest", connectionRequest);
     if (connectionRequest.length < 0) {
       return res.status(400).json({ message: "No Connection Request Found" });
@@ -51,7 +58,7 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
       }
       return row.fromUserId;
     });
-    res.json({ message: "connection data", data : data});
+    res.json({ message: "connection data", data: data });
   } catch (err) {
     res.status(400).send("Error " + err.message);
   }
@@ -60,10 +67,10 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 userRouter.get("/user/feed", userAuth, async (req, res) => {
   try {
     const loggedInUser = req.user;
-    const page = parseInt(req.query.page) ||1;
-    let limit = parseInt(req.query.limit) ||5;
-    limit = limit > 50 ? 50: limit;
-    const skip = (page-1) *limit;
+    const page = parseInt(req.query.page) || 1;
+    let limit = parseInt(req.query.limit) || 5;
+    limit = limit > 50 ? 50 : limit;
+    const skip = (page - 1) * limit;
 
     const connectionsRequest = await ConnectionRequestModel.find({
       $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
@@ -76,9 +83,21 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       hideConnectionsFeed.add(req.toUserId.toString());
     });
 
-    const data = await User.find({
-      _id: { $nin: Array.from(hideConnectionsFeed) },
-    }).select(["firstName", "LastName", "photoURL", "about", "skills"]).skip(skip).limit(limit);
+    const data = await User.find(
+      {
+        $and: [
+          {
+            _id: { $nin: Array.from(hideConnectionsFeed) },
+          },
+          {
+            _id: { $ne: loggedInUser._id },
+          }
+        ]
+      }
+    )
+      .select(["firstName", "LastName", "photoURL", "about", "skills"])
+      .skip(skip)
+      .limit(limit);
 
     const userData = await User.find();
 
