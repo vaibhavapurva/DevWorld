@@ -51,7 +51,7 @@ requestRouter.post(
       });
 
       const data = await connectionRequest.save();
-      const resEmail = await sendEmail.run()
+      const resEmail = await sendEmail.run("connect request","you have recived connect request") 
       console.log(resEmail)
       res.json({
         message: "connect resquest send Succecfully",
